@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>Test a Perceptual Phenomenon</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Test+a+Perceptual+Phenomenon</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11785,8 +11785,16 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>the dependent variable, where we hope to change is the time it takes to name the ink colors
-the independent variables are controlled by the experimenting scientist: colour of the words displayed</p>
+<p>the dependent variable, where we hope to change is:</p>
+<ul>
+<li>the time it takes to name the ink colors</li>
+</ul>
+<p>the independent variables are controlled by the experimenting scientist:</p>
+<ul>
+<li>colour of the words displayed</li>
+<li>the number of congruent and incongruent words displayed</li>
+<li>the number of different colours used</li>
+</ul>
 
 </div>
 </div>
@@ -11804,9 +11812,13 @@ the independent variables are controlled by the experimenting scientist: colour 
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>H0: time to read congruent words = time to read incongruent words, tc = ti</p>
-<p>Ha: time to read congruent words &lt; time to read incongruent words, tc &lt; ti</p>
-<p>I will perform a two independent samples t-test, one-tailed to see if the incongruent words have a negative effect on the reading time as I may assume.</p>
+<p>H0: There is no difference in population means of response time under congruent and incongruent scenarios, 
+H0: μC = μI</p>
+<p>Ha: The population mean of the response time under congruent and incongruent scenarios are significantly different.
+Ha: μC != μI</p>
+<p>μ is defined as the population mean.</p>
+<p>As we do not have the population data available but only 24 paired samples of the congruent and incongruent words test we cannot use a z-test. Due to the small sample size a t-test suits best.
+I will perform a paired sample t-test, two-tailed to compare the two means that are from the same group of people</p>
 
 </div>
 </div>
@@ -11841,7 +11853,7 @@ the independent variables are controlled by the experimenting scientist: colour 
 <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Mean:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
 <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Median congruent:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Congruent</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
 <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Median incongruent:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Incongruent</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
-<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Standard deviation of the mean:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Standard deviation of the mean sample:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 
 <span class="c1">#calc quartile</span>
 <span class="k">def</span> <span class="nf">IQR_range</span><span class="p">(</span><span class="n">Q1</span><span class="p">,</span><span class="n">Q3</span><span class="p">):</span>
@@ -11915,8 +11927,8 @@ Incongruent    22.015917
 dtype: float64
 Median congruent: 14.3565
 Median incongruent: 21.0175
-Standard deviation of the mean: Congruent      3.484416
-Incongruent    4.696055
+Standard deviation of the mean sample: Congruent      3.559358
+Incongruent    4.797057
 dtype: float64
 IQR Congruent min - max: [5.4370000000000029, 22.658999999999999]
 IQR Incongruent min - max: [10.714625000000002, 32.053624999999997]
@@ -11940,9 +11952,9 @@ Incongruent    22.015917</p>
 Congruent: 14.3565
 Incongruent: 21.0175</p>
 <p>Measure of variability:
-Standard deviation of the mean: 
-Congruent      3.484416
-Incongruent    4.696055</p>
+Standard deviation of the mean sample (using Bessel's correction: 
+Congruent      3.559358
+Incongruent    4.797057</p>
 <p>IQR Congruent min - max: [5.437, 22.659]
 IQR Incongruent min - max: [10.715, 32.054]</p>
 
@@ -11987,7 +11999,7 @@ IQR Incongruent min - max: [10.715, 32.054]</p>
 
 
 <div class="output_html rendered_html output_subarea ">
-<div id="af749a54-aced-4c45-8170-258d274cb77c" style="height: 525px; width: 100%;" class="plotly-graph-div"></div><script type="text/javascript">require(["plotly"], function(Plotly) { window.PLOTLYENV=window.PLOTLYENV || {};window.PLOTLYENV.BASE_URL="https://plot.ly";Plotly.newPlot("af749a54-aced-4c45-8170-258d274cb77c", [{"type": "histogram", "x": [12.079, 16.791, 9.564, 8.63, 14.669, 12.238, 14.692, 8.987, 9.401, 14.48, 22.328000000000003, 15.298, 15.073, 16.929000000000002, 18.2, 12.13, 18.495, 10.639000000000001, 11.344000000000001, 12.369000000000002, 12.944, 14.232999999999999, 19.71, 16.004]}], {}, {"showLink": true, "linkText": "Export to plot.ly"})});</script>
+<div id="a025e17a-c49a-49e5-b16d-eab21ce30c3d" style="height: 525px; width: 100%;" class="plotly-graph-div"></div><script type="text/javascript">require(["plotly"], function(Plotly) { window.PLOTLYENV=window.PLOTLYENV || {};window.PLOTLYENV.BASE_URL="https://plot.ly";Plotly.newPlot("a025e17a-c49a-49e5-b16d-eab21ce30c3d", [{"type": "histogram", "x": [12.079, 16.791, 9.564, 8.63, 14.669, 12.238, 14.692, 8.987, 9.401, 14.48, 22.328000000000003, 15.298, 15.073, 16.929000000000002, 18.2, 12.13, 18.495, 10.639000000000001, 11.344000000000001, 12.369000000000002, 12.944, 14.232999999999999, 19.71, 16.004]}], {}, {"showLink": true, "linkText": "Export to plot.ly"})});</script>
 </div>
 
 </div>
@@ -11999,7 +12011,7 @@ IQR Incongruent min - max: [10.715, 32.054]</p>
 
 
 <div class="output_html rendered_html output_subarea ">
-<div id="82575679-6a6b-40e3-ae18-e846c3938342" style="height: 525px; width: 100%;" class="plotly-graph-div"></div><script type="text/javascript">require(["plotly"], function(Plotly) { window.PLOTLYENV=window.PLOTLYENV || {};window.PLOTLYENV.BASE_URL="https://plot.ly";Plotly.newPlot("82575679-6a6b-40e3-ae18-e846c3938342", [{"type": "histogram", "x": [19.278, 18.741, 21.214000000000002, 15.687000000000001, 22.803, 20.878, 24.572, 17.394000000000002, 20.761999999999997, 26.281999999999996, 24.524, 18.644000000000002, 17.51, 20.33, 35.255, 22.158, 25.139, 20.429000000000002, 17.425, 34.288000000000004, 23.894000000000002, 17.96, 22.058000000000003, 21.156999999999996]}], {}, {"showLink": true, "linkText": "Export to plot.ly"})});</script>
+<div id="8a06b700-f1f7-40ea-badb-7679d78a625a" style="height: 525px; width: 100%;" class="plotly-graph-div"></div><script type="text/javascript">require(["plotly"], function(Plotly) { window.PLOTLYENV=window.PLOTLYENV || {};window.PLOTLYENV.BASE_URL="https://plot.ly";Plotly.newPlot("8a06b700-f1f7-40ea-badb-7679d78a625a", [{"type": "histogram", "x": [19.278, 18.741, 21.214000000000002, 15.687000000000001, 22.803, 20.878, 24.572, 17.394000000000002, 20.761999999999997, 26.281999999999996, 24.524, 18.644000000000002, 17.51, 20.33, 35.255, 22.158, 25.139, 20.429000000000002, 17.425, 34.288000000000004, 23.894000000000002, 17.96, 22.058000000000003, 21.156999999999996]}], {}, {"showLink": true, "linkText": "Export to plot.ly"})});</script>
 </div>
 
 </div>
@@ -12029,31 +12041,34 @@ The incongruent colour words have a positive skewness, the mean is right of the 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s_stddev_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Congruent</span><span class="p">,</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">s_mn_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Congruent</span><span class="p">)</span>
-<span class="n">s_n_1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Congruent</span><span class="p">)</span>
-<span class="n">s_stddev_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Incongruent</span><span class="p">,</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">s_mn_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Incongruent</span><span class="p">)</span>
-<span class="n">s_n_2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Incongruent</span><span class="p">)</span>
-<span class="n">SE_D</span> <span class="o">=</span> <span class="p">(</span><span class="n">s_stddev_1</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">s_n_1</span> <span class="o">+</span> <span class="n">s_stddev_2</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">s_n_2</span><span class="p">)</span><span class="o">**.</span><span class="mi">5</span> 
-<span class="n">t</span> <span class="o">=</span> <span class="p">((</span><span class="n">s_mn_1</span> <span class="o">-</span> <span class="n">s_mn_2</span><span class="p">)</span> <span class="o">/</span> <span class="n">SE_D</span><span class="p">)</span>
-<span class="n">degf</span> <span class="o">=</span> <span class="n">s_n_1</span> <span class="o">+</span> <span class="n">s_n_2</span> <span class="o">-</span> <span class="mi">2</span>
-<span class="n">alpha</span>  <span class="o">=.</span><span class="mi">05</span>
-<span class="n">t_c</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span><span class="n">degf</span><span class="p">)</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">degf</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;p-value:&quot;</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sample Standard Deviation 1:&quot;</span><span class="p">,</span> <span class="n">s_stddev_1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sample Standard Deviation 2:&quot;</span><span class="p">,</span> <span class="n">s_stddev_2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sample Mean 1:&quot;</span><span class="p">,</span> <span class="n">s_mn_1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sample Mean 2:&quot;</span><span class="p">,</span> <span class="n">s_mn_2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of Samples 1, 2:&quot;</span><span class="p">,</span><span class="n">s_n_1</span><span class="p">,</span> <span class="n">s_n_2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Standard Error of the 2 samples:&quot;</span><span class="p">,</span> <span class="n">SE_D</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;t-statistics:&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;t critical value:&quot;</span><span class="p">,</span> <span class="n">t_c</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Congruent</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">Incongruent</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#paired sample t-test, two-tailed</span>
+
+<span class="c1">#1 - Calculate the Differences (Congruent - Incongruent) of each test</span>
+<span class="n">df_D</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Congruent</span> <span class="o">-</span> <span class="n">df</span><span class="o">.</span><span class="n">Incongruent</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_D</span><span class="p">)</span>
+<span class="n">degf</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span> <span class="c1">#degrees of freedom</span>
+<span class="n">mn_D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">df_D</span><span class="p">)</span>
+
+<span class="c1">#2 - Calculate the squared deviations difference - ((Differences of Congruent and Incongruent)-Mean difference)^2</span>
+<span class="c1">#3 - Sum the squared deviations difference</span>
+<span class="c1">#4 - Divide it by the number of samples - 1 to achieve the Variance Difference.</span>
+<span class="c1">#5 - Square root the Variance Difference</span>
+<span class="n">S_D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">df_D</span><span class="p">,</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">#Then you will have the SDDifference and can calculate the t statistics:</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">mn_D</span> <span class="o">/</span> <span class="p">(</span><span class="n">S_D</span> <span class="o">/</span> <span class="n">n</span><span class="o">**.</span><span class="mi">5</span><span class="p">)</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;t-value:&quot;</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+
+<span class="n">alpha</span> <span class="o">=</span> <span class="o">.</span><span class="mi">05</span>
+<span class="n">t_c</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">degf</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;t-critical value:&quot;</span><span class="p">,</span><span class="n">t_c</span><span class="p">)</span>
+
+<span class="n">st</span><span class="o">.</span><span class="n">ttest_rel</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Congruent</span><span class="p">,</span><span class="n">df</span><span class="o">.</span><span class="n">Incongruent</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12070,18 +12085,23 @@ The incongruent colour words have a positive skewness, the mean is right of the 
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>p-value: 4.5949489623e-08
-Sample Standard Deviation 1: 3.55935795765
-Sample Standard Deviation 2: 4.79705712247
-Sample Mean 1: 14.051125
-Sample Mean 2: 22.0159166667
-Number of Samples 1, 2: 24 24
-Standard Error of the 2 samples: 1.21930284225
-t-statistics: -6.5322505539
-t critical value: -1.67866041259
-Ttest_indResult(statistic=-6.5322505539032285, pvalue=4.5949489622951854e-08)
+<pre>t-value: -8.020706944109957
+t-critical value: -2.06865761042
 </pre>
 </div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[12]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Ttest_relResult(statistic=-8.020706944109957, pvalue=4.1030005857111781e-08)</pre>
+</div>
+
 </div>
 
 </div>
@@ -12092,27 +12112,14 @@ Ttest_indResult(statistic=-6.5322505539032285, pvalue=4.5949489622951854e-08)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The t-value of -6.532, the t critical value of -1.679.
-The p-value is nearly 0 and therefore far below the alpha level of .05
+<p>The t-value of -8.0207 is far below the t critical value of -2.0687. 
+The p-value is nearly 0 and therefore far below the alpha level of .05 
 There is a statistical significant difference between the two tests. 
-Therefore I reject the null hypothesis.
+Therefore I reject the null hypothesis. 
 My conclusion is that reading time slows down significantly for incongruent words which matches up with my expectations.</p>
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-</div>
-</div>
-</div>
-
 </div>
     </div>
   </div>
